@@ -9,9 +9,12 @@ public class PolicyCache {
     private static HashMap<String, Policy> rateCache;
     private static HashMap<String , Boolean> expiryCache;
 
+    private static HashMap<String , Policy> apiRateCache;
+
     private PolicyCache() {
         expiryCache = new HashMap<String , Boolean>();
         rateCache = new HashMap<String, Policy>();
+        apiRateCache = new HashMap<String, Policy>();
     }
 
     public static PolicyCache getInstance() {
@@ -35,5 +38,13 @@ public class PolicyCache {
 
     public static void setExpiryCache(HashMap<String , Boolean> expiryCache) {
         PolicyCache.expiryCache = expiryCache;
+    }
+
+    public static HashMap<String, Policy> getApiRateCache() {
+        return apiRateCache;
+    }
+
+    public static void setApiRateCache(HashMap<String, Policy> apiRateCache) {
+        PolicyCache.apiRateCache = apiRateCache;
     }
 }

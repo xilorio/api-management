@@ -31,6 +31,21 @@ public class PolicyRepository {
         }
         return null;
     }
+    public Policy getByUri(String uri) throws SQLException {
+        Connection connection = ds.getConnection();
+        String query = "select * from policy p, api a where p.title = a.policy and a.uri = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, uri);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            Policy pol =  new Policy(rs.getString("title"),rs.getInt("rate"),rs.getInt("perSec"));
+            rs.close();
+            ps.close();
+            connection.close();
+            return pol;
+        }
+        return null;
+    }
     public boolean isTokenExpired(String token) throws SQLException {
         Connection connection = ds.getConnection();
         String query = "select expired from token t where t.token = ?";

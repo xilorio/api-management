@@ -21,9 +21,15 @@ public class RateLimitingFilter implements ContainerRequestFilter{
             LOGGER.debug("cache initialized");
 
             String token = containerRequestContext.getHeaderString("X-Authorization");
+            String uri = containerRequestContext.getUriInfo().getBaseUri().toString();
             LOGGER.info("Request from token : "+ token);
 
-            cacheHandler.fillCache(token);
+            cacheHandler.fillCache(token, uri);
+            LOGGER.info(uri);
+            if (cacheHandler.getApiRateCache().get(uri) != null){
+                LOGGER.info("Existing policy for "+ uri);
+                ApiRateManager apiRateManager = new ApiRateManager(cacheHandler, containerRequestContext, uri);
+            }
             if (cacheHandler.getCache().get(token) != null){
                 LOGGER.info("Existing policy for "+ token);
                 TokenRateManager rateManager = new TokenRateManager(cacheHandler, containerRequestContext, token);

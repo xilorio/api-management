@@ -29,8 +29,10 @@ public class TokenExpiryFilter implements ContainerRequestFilter {
             LOGGER.debug("cache initialized");
 
             String token = containerRequestContext.getHeaderString("X-Authorization");
+            String uri = containerRequestContext.getUriInfo().getBaseUri().toString();
+
             LOGGER.info("Request from token : "+ token);
-            cacheHandler.fillCache(token);
+            cacheHandler.fillCache(token,uri);
             if (cacheHandler.getExpiryCache().get(token)){
                 LOGGER.info("token expired "+ token);
                 containerRequestContext.abortWith(Response.status(Response.Status.TOO_MANY_REQUESTS)
