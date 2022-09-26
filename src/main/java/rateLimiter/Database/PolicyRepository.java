@@ -1,21 +1,22 @@
-package rateLimiter;
+package rateLimiter.Database;
 
+import rateLimiter.Policy;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-public class PolDAO {
-    private PolDatabase db;
+public class PolicyRepository {
+    private DataSource ds;
 
-    public PolDAO() throws SQLException, ClassNotFoundException {
-        this.db = PolDatabase.getInstance();
-
+    public PolicyRepository() throws SQLException, ClassNotFoundException {
+        this.ds = PolicyDataSource.getMysqlDataSource();
     }
 
     public Policy getByToken(String token) throws SQLException {
-        Connection connection = db.getConnection();
+        Connection connection = ds.getConnection();
         String query = "select * from policy p, token t where p.title = t.policy and t.token = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setString(1,token);
@@ -27,5 +28,6 @@ public class PolDAO {
         }
         return null;
     }
+
 
 }

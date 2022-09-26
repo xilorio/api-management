@@ -1,18 +1,20 @@
-package rateLimiter;
+package rateLimiter.cache;
+
+import rateLimiter.Policy;
 
 import java.util.HashMap;
 
-public class PolCache {
-    private static PolCache instance;
+public class PolicyCache {
+    private static PolicyCache instance;
     private static HashMap<String, Policy> cache;
 
-    private PolCache() {
+    private PolicyCache() {
         cache = new HashMap<String, Policy>();
     }
 
-    public static PolCache getInstance() {
+    public static PolicyCache getInstance() {
         if(instance == null){
-            instance = new PolCache();
+            instance = new PolicyCache();
         }
         return instance;
     }
@@ -22,7 +24,7 @@ public class PolCache {
     }
 
     public static void setCache(HashMap<String, Policy> cache) {
-        PolCache.cache = cache;
+        PolicyCache.cache = cache;
     }
 
 

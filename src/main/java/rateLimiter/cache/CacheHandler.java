@@ -1,28 +1,29 @@
-package rateLimiter;
+package rateLimiter.cache;
+
+import rateLimiter.Database.PolicyRepository;
+import rateLimiter.Policy;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 
 public class CacheHandler {
-    private HashMap<String ,Policy> cache;
-    private PolDAO polDAO;
+    private HashMap<String , Policy> cache;
+    private PolicyRepository policyRepository;
 
     public CacheHandler() throws SQLException, ClassNotFoundException {
-        PolCache polCache = PolCache.getInstance();
-        cache = PolCache.getCache();
-        polDAO = new PolDAO();
+        PolicyCache policyCache = PolicyCache.getInstance();
+        cache = PolicyCache.getCache();
+        policyRepository = new PolicyRepository();
     }
 
-    public Boolean fillCache(String token) throws SQLException {
+    public void fillCache(String token) throws SQLException {
         Policy policy;
         if(cache.get(token) == null){
-            policy = polDAO.getByToken(token);
+            policy = policyRepository.getByToken(token);
             if(policy != null) {
                 cache.put(token, policy);
-                return true;
             }
         }
-        return false;
     }
 
     public HashMap getCache() {

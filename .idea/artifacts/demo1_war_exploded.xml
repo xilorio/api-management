@@ -51,6 +51,11 @@
           <element id="library" level="project" name="Maven: org.glassfish.jaxb:jaxb-core:3.0.2" />
           <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:3.0.2" />
           <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:4.0.1" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:3.4.5" />
+          <element id="library" level="project" name="Maven: org.json:json:20220320" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-jdk14:2.0.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.6.4" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:7.0.4.Final" />
           <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:3.0.0" />
           <element id="library" level="project" name="Maven: org.jboss.weld.se:weld-se-core:4.0.3.Final" />
@@ -60,6 +65,7 @@
           <element id="library" level="project" name="Maven: org.jboss.weld:weld-spi:4.0.SP1" />
           <element id="library" level="project" name="Maven: org.jboss.weld.probe:weld-probe-core:4.0.3.Final" />
           <element id="library" level="project" name="Maven: org.jboss.classfilewriter:jboss-classfilewriter:1.2.5.Final" />
+          <element id="library" level="project" name="Maven: org.glassfish:jsonp-jaxrs-1x:2.0.0-RC3" />
         </element>
       </element>
       <element id="directory" name="META-INF">
