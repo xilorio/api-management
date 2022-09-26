@@ -1,4 +1,4 @@
-package rateLimiter.Database;
+package Database;
 
 import rateLimiter.Policy;
 
@@ -15,6 +15,7 @@ public class PolicyRepository {
         this.ds = PolicyDataSource.getMysqlDataSource();
     }
 
+
     public Policy getByToken(String token) throws SQLException {
         Connection connection = ds.getConnection();
         String query = "select * from policy p, token t where p.title = t.policy and t.token = ?";
@@ -23,10 +24,32 @@ public class PolicyRepository {
         ResultSet rs = ps.executeQuery();
         if(rs.next()){
             Policy pol =  new Policy(rs.getString("title"),rs.getInt("rate"),rs.getInt("perSec"));
+            rs.close();
+            ps.close();
             connection.close();
             return pol;
         }
         return null;
+    }
+    public boolean isTokenExpired(String token) throws SQLException {
+        Connection connection = ds.getConnection();
+        String query = "select expired from token t where t.token = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1,token);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            if(rs.getInt("expired") == 1){
+                rs.close();
+                ps.close();
+                connection.close();
+                return true;
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+            return false;
+        }
+        return false;
     }
 
 
